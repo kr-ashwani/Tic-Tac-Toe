@@ -237,5 +237,5 @@ restartGame.addEventListener("click", checkPopUp);
 function checkPopUp() {
   console.log(pop_up.classList[0]);
   if (pop_up.classList[0] === 'pop-up')
-    pop_up.classList.toggle('pop-up')
+    setTimeout(() => pop_up.classList.toggle('pop-up'), 300)
 }
