@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+  <div class="section">
+    <h1>Tic-Tac-Toe</h1>
+    <div class="level-share">
+      <div class="level">Level
+        <select name="level">
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Imposible">Imposible</option>
+        </select>
+      </div>
+      <div class="share">
+        <div class="share-box"></div>
+      </div>
+    </div>
+    <div class="score">
+      <div class="cross shadow">
+        <p>&#10006;</p>
+        <p> - </p>
+      </div>
+      <div class="circle">
+        <p>&#9900;</p>
+        <p> - </p>
+      </div>
+    </div>
+    <div class="information">Start game or select player</div>
+    <div class="gameBoard">
+      <div class="game-grid">
+         <div class="horizontal-line">
+          <div class="h-line1 h-line line"></div>
+          <div class="h-line2 h-line line"></div>
+         </div>
+          <div class="verticle-line">
+            <div class="v-line1 v-line line"></div>
+            <div class="v-line2 v-line line"></div>
+          </div>
+      </div>
+    </div>
+    <div class="restart">
+      <button>RESTART GAME</button>
+    </div>
+  </div>
+  <script src="/scripts/app.js"></script>
+</body>
+</html>
+

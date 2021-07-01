@@ -1,0 +1,141 @@
+// if nothing is passed as  a parameter of @include display-flex;
+// then the default value i.e. row will be the value of $direction
+@mixin display-flex($direction: row) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: $direction;
+}
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  width: 100vw;
+  min-height: 100vh;
+  height: 100vh;
+}
+.section {
+  width: 100%;
+  height: 100%;
+  @include display-flex(column);
+  justify-content: space-around;
+}
+.gameBoard {
+  width: 80%;
+  height: 400px;
+  background-color: #14bdac;
+  @include display-flex;
+}
+.game-grid {
+  width: 350px;
+  height: 350px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 8px;
+  position: relative;
+}
+.horizontal-line,
+.verticle-line {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+}
+.horizontal-line {
+  @include display-flex(column);
+  justify-content: space-evenly;
+}
+.verticle-line {
+  @include display-flex;
+  justify-content: space-evenly;
+}
+
+.v-line1,
+.v-line2 {
+  width: 8px;
+  background-color: #0da192;
+  height: 100%;
+  transform: scalex(1);
+}
+.h-line1,
+.h-line2 {
+  height: 8px;
+  background-color: #0da192;
+  width: 100%;
+  transform: scaley(1);
+}
+
+@media screen and(max-width:900px) {
+  .gameBoard {
+    width: 100%;
+  }
+}
+//main
+.boxes {
+  z-index: 2;
+  position: relative;
+}
+.score {
+  width: 500px; //responsible
+  @include display-flex;
+  justify-content: space-between;
+}
+
+.cross {
+  margin-left: 50px;
+}
+.circle {
+  margin-right: 50px;
+}
+.cross,
+.circle {
+  //responsible
+  width: 150px;
+  height: 35px;
+  user-select: none;
+  @include display-flex;
+  border-radius: 6px;
+  box-shadow: -1.6px -1.6px #d4d0d0, 0px 1.6px #d4d0d0, -1.6px 0px #d4d0d0,
+    0px -1.6px #d4d0d0, 0px 1.9px #d4d0d0, 1.6px 0px #d4d0d0;
+  transition: 0.2s linear;
+  //border: 1.6px solid #d4d0d0;
+  justify-content: space-around;
+  //box-shadow: 0px 1.8px #14bdac;
+}
+.shadow {
+  box-shadow: -1.6px -1.6px #d4d0d0, 0px 1.6px #14bdac, -1.6px 0px #d4d0d0,
+    0px -1.6px #d4d0d0, 0px 1.9px #14bdac, 1.6px 0px #d4d0d0,
+    0px 3.6px 10px rgba(#251e1e, 0.4);
+}
+.cross > p:first-child,
+.circle > P:first-child {
+  font-weight: 300;
+  font-size: 1.3rem;
+  margin-left: -15px;
+}
+.circle > P:first-child {
+  font-weight: 100;
+  font-size: 2.6rem;
+  margin-top: -10px;
+}
+.cross > p:last-child,
+.circle > P:last-child {
+  font-size: 2.3rem;
+  color: #757575;
+  margin-right: -15px;
+  margin-top: -5px;
+}
+
+.boxes::before {
+  content: "&#10006;";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #c9c4c4;
+  @include display-flex;
+}
