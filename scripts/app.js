@@ -12,6 +12,7 @@ restartGame.addEventListener("click", restart);
 let winnerArray = [];
 
 function restart() {
+  rayAnimation();
   boxes.forEach(item => item.firstElementChild.setAttribute('style', null));
   lineAnimation();
   resetCrossCircle();
@@ -23,9 +24,8 @@ function restart() {
   });
   noOfBoxes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   boxEvent = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  clickWork = false;
   clickCount = 0;
-  userSelect = "crossmark";
+  userSelect = Array.from(crossCard.classList).includes('shadow') ? "crossmark" : "circlemark";
   winnerArray = [];
 }
 
@@ -90,7 +90,6 @@ let boxEvent = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 function userClick() {
   clickCount++;
   if (clickCount === 1) {
-    clickWork = true;
     crossCard.removeEventListener('click', playerSelect);
     circleCard.removeEventListener('click', playerSelect);
     user = userSelect;
@@ -146,8 +145,11 @@ function userTurn(user, element) {
   symbolAnimation(user, element);
   if (getWinner(user)) {
     console.log(user, " is winner");
+    setColor(user);
     gameOverOverlay.style.zIndex = '3';
-    console.log(winnerArray);
+    setTimeout(() => {
+      rayAnimation(1);
+    }, 500);
   }
 }
 
@@ -164,8 +166,11 @@ function computerTurn(computer) {
     symbolAnimation(computer, boxSelected);
     if (getWinner(computer)) {
       console.log(computer, " is winner");
+      setColor(computer);
       gameOverOverlay.style.zIndex = '3';
-      console.log(winnerArray);
+      setTimeout(() => {
+        rayAnimation(1);
+      }, 500);
     }
   }, 400);
   setTimeout(() => {
@@ -241,29 +246,6 @@ function getWinner(symbol) {
 }
 
 
-// let heading = document.getElementsByTagName('h1')[0];
-// heading.style.color = "red";
-// // heading.addEventListener('mousedown', test);
-// heading.addEventListener('mouseup', original);
-
-// function test() {
-//   gameOverOverlay.style.backgroundColor = 'blue';
-//   gameOverOverlay.style.zIndex = '3';
-//   console.log("mouse hovered");
-//   let testRay = document.querySelector('.h-slash1');
-//   testRay.style.transform = "scalex(1)";
-//   document.querySelector('.rotate > div:last-child').style.transform = "scaley(1)";
-// }
-// function original() {
-//   gameOverOverlay.style.background = 'transparent';
-//   console.log("mouse hovered");
-//   let testRay = document.querySelector('.h-slash1');
-//   testRay.style.transform = "scalex(0)";
-//   document.querySelector('.rotate > div:last-child').style.transform = "scaley(0)";
-
-// }
-
-
 restartGame.addEventListener("click", removeOverlay);
 function removeOverlay() {
   let zIndexOfOverlay = getComputedStyle(gameOverOverlay).getPropertyValue('z-index');
@@ -271,3 +253,35 @@ function removeOverlay() {
     gameOverOverlay.style.zIndex = '-3'
 }
 
+function rayAnimation(value = 0) {
+  console.log("winner Array is :- ", winnerArray);
+  if (winnerArray[0] === 1) {
+    if (winnerArray[1] === 2) {
+      document.querySelector('.h-slash1').style.transform = `scalex(${value})`;
+    }
+    else if (winnerArray[1] === 4) {
+      document.querySelector('.v-slash1').style.transform = `scaley(${value})`;
+    }
+    else if (winnerArray[1] === 5) {
+      document.querySelector('.r-slash1').style.transform = `scalex(${value})`;
+    }
+
+  }
+}
+
+function setColor(winner) {
+  console.log(winner);
+  let color = winner === 'crossmark' ? '#545454' : '#f2ebd3';
+  if (winnerArray[0] === 1) {
+    if (winnerArray[1] === 2) {
+      document.querySelector('.h-slash1').style.background = color;
+    }
+    else if (winnerArray[1] === 4) {
+      document.querySelector('.v-slash1').style.background = color;
+    }
+    else if (winnerArray[1] === 5) {
+      document.querySelector('.r-slash1').style.background = color;
+    }
+
+  }
+}

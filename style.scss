@@ -240,22 +240,22 @@ body {
 }
 
 .rotate > div:first-child {
-  width: 135%;
+  width: 120%;
   height: 8px;
   position: absolute;
   background-color: #545454;
-  top: 50%;
-  left: -18%;
+  top: 49%;
+  left: -10%;
   transform-origin: left;
   transform: scaleX(0);
 }
 .rotate > div:last-child {
   width: 8px;
-  height: 135%;
+  height: 120%;
   position: absolute;
   background-color: #545454;
-  left: 50%;
-  top: -18%;
+  left: 49%;
+  top: -10%;
   transform-origin: top;
   transform: scaleY(0);
 }
