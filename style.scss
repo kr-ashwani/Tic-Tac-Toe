@@ -152,8 +152,6 @@ body {
   position: absolute;
   transition: 0.2s ease-in-out;
 }
-.circle {
-}
 
 :root {
   --crossScale: 1;
@@ -197,3 +195,21 @@ body {
 // #pop {
 //   transform: scale(1);
 // }
+
+@media screen and(max-width:520px) {
+  .score {
+    width: 100%;
+  }
+  .crossmark,
+  .circlemark {
+    //responsible
+    width: 140px;
+    height: 35px;
+  }
+  .crossmark {
+    margin-left: 10px;
+  }
+  .circlemark {
+    margin-right: 20px;
+  }
+}

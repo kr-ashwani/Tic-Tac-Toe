@@ -224,3 +224,20 @@ body {
   transition: 0.3s ease-in-out;
   transform: scale(1);
 }
+
+@media screen and (max-width: 520px) {
+  .score {
+    width: 100%;
+  }
+  .crossmark,
+  .circlemark {
+    width: 140px;
+    height: 35px;
+  }
+  .crossmark {
+    margin-left: 10px;
+  }
+  .circlemark {
+    margin-right: 20px;
+  }
+}
