@@ -6,10 +6,10 @@ for (let i = 1; i <= 9; i++)
 let boxes = document.getElementsByClassName('boxes');
 boxes = Array.from(boxes);
 const restartGame = document.querySelector('.restart>button');
+let gameOverOverlay = document.querySelector('.lineanimation');
 
 restartGame.addEventListener("click", restart);
-let pop_up = document.getElementById('pop');
-// pop_up.classList.toggle('pop-up');
+let winnerArray = [];
 
 function restart() {
   boxes.forEach(item => item.firstElementChild.setAttribute('style', null));
@@ -26,6 +26,7 @@ function restart() {
   clickWork = false;
   clickCount = 0;
   userSelect = "crossmark";
+  winnerArray = [];
 }
 
 
@@ -101,9 +102,8 @@ function userClick() {
     this.removeEventListener('click', userClick);
     userSelectBox = this.classList[1];
     userTurn(user, this.firstElementChild);
-    if (clickCount === 1)
-      clickWork = false;
-    if (clickCount <= 4 && (typeof pop_up.classList[0] === 'undefined'))
+    let zIndexOfOverlay = getComputedStyle(gameOverOverlay).getPropertyValue('z-index');
+    if (clickCount <= 4 && zIndexOfOverlay === '-3')
       computerTurn(computer);
   }
 }
@@ -146,7 +146,8 @@ function userTurn(user, element) {
   symbolAnimation(user, element);
   if (getWinner(user)) {
     console.log(user, " is winner");
-    pop_up.classList.toggle('pop-up');
+    gameOverOverlay.style.zIndex = '3';
+    console.log(winnerArray);
   }
 }
 
@@ -163,7 +164,8 @@ function computerTurn(computer) {
     symbolAnimation(computer, boxSelected);
     if (getWinner(computer)) {
       console.log(computer, " is winner");
-      pop_up.classList.toggle('pop-up');
+      gameOverOverlay.style.zIndex = '3';
+      console.log(winnerArray);
     }
   }, 400);
   setTimeout(() => {
@@ -189,53 +191,83 @@ function getWinner(symbol) {
     for (let k = j; k <= rowLast; k++) {
       compareBox = document.querySelector(`.box${k}`).firstElementChild.classList[0];
       if (compareBox === symbol) {
-        count++;
+        count++; winnerArray.push(k);
       }
       if (count === 3)
         return true;
     }
+    winnerArray.length = 0;
     j += 3;
     rowLast += 3;
   }
+  winnerArray.length = 0;
   j = 1; count = 0;
   for (let i = 1; i <= 3; i++) {
     count = 0;
     for (let k = j; k <= colLast; k = k + 3) {
       compareBox = document.querySelector(`.box${k}`).firstElementChild.classList[0];
-      if (compareBox === symbol)
-        count++;
+      if (compareBox === symbol) {
+        count++; winnerArray.push(k);
+      }
       if (count === 3)
         return true;
     }
+    winnerArray.length = 0;
     j++;
     colLast++;
   }
+  winnerArray.length = 0;
   count = 0;
   for (let i = 1; i <= 9; i = i + 4) {
     compareBox = document.querySelector(`.box${i}`).firstElementChild.classList[0];
-    if (compareBox === symbol)
-      count++;
+    if (compareBox === symbol) {
+      count++; winnerArray.push(i);
+    }
     if (count === 3)
       return true;
   }
+  winnerArray.length = 0;
   count = 0;
   for (let i = 3; i <= 7; i = i + 2) {
     compareBox = document.querySelector(`.box${i}`).firstElementChild.classList[0];
-    if (compareBox === symbol)
-      count++;
+    if (compareBox === symbol) {
+      count++; winnerArray.push(i);
+    }
     if (count === 3)
       return true;
   }
+  winnerArray.length = 0;
   return false;
 }
 
 
+// let heading = document.getElementsByTagName('h1')[0];
+// heading.style.color = "red";
+// // heading.addEventListener('mousedown', test);
+// heading.addEventListener('mouseup', original);
+
+// function test() {
+//   gameOverOverlay.style.backgroundColor = 'blue';
+//   gameOverOverlay.style.zIndex = '3';
+//   console.log("mouse hovered");
+//   let testRay = document.querySelector('.h-slash1');
+//   testRay.style.transform = "scalex(1)";
+//   document.querySelector('.rotate > div:last-child').style.transform = "scaley(1)";
+// }
+// function original() {
+//   gameOverOverlay.style.background = 'transparent';
+//   console.log("mouse hovered");
+//   let testRay = document.querySelector('.h-slash1');
+//   testRay.style.transform = "scalex(0)";
+//   document.querySelector('.rotate > div:last-child').style.transform = "scaley(0)";
+
+// }
 
 
-restartGame.addEventListener("click", checkPopUp);
-
-function checkPopUp() {
-  console.log(pop_up.classList[0]);
-  if (pop_up.classList[0] === 'pop-up')
-    setTimeout(() => pop_up.classList.toggle('pop-up'), 300)
+restartGame.addEventListener("click", removeOverlay);
+function removeOverlay() {
+  let zIndexOfOverlay = getComputedStyle(gameOverOverlay).getPropertyValue('z-index');
+  if (zIndexOfOverlay === '3')
+    gameOverOverlay.style.zIndex = '-3'
 }
+
