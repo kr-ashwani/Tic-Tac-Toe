@@ -13,6 +13,8 @@ let winnerArray = [];
 
 function restart() {
   rayAnimation();
+  resetBoxesTransform();
+  removeTransformOriginLine();
   boxes.forEach(item => item.firstElementChild.setAttribute('style', null));
   lineAnimation();
   resetCrossCircle();
@@ -150,6 +152,12 @@ function userTurn(user, element) {
     setTimeout(() => {
       rayAnimation(1);
     }, 500);
+    setTimeout(() => {
+      transformOriginLine();
+    }, 700);
+    setTimeout(() => {
+      moveAnimation();
+    }, 900)
   }
 }
 
@@ -171,6 +179,13 @@ function computerTurn(computer) {
       setTimeout(() => {
         rayAnimation(1);
       }, 500);
+      setTimeout(() => {
+        transformOriginLine();
+      }, 700);
+      setTimeout(() => {
+        moveAnimation();
+      }, 900)
+
     }
   }, 400);
   setTimeout(() => {
@@ -254,7 +269,6 @@ function removeOverlay() {
 }
 
 function rayAnimation(value = 0) {
-  console.log("winner Array is :- ", winnerArray);
   if (winnerArray[0] === 1) {
     if (winnerArray[1] === 2) {
       document.querySelector('.h-slash1').style.transform = `scalex(${value})`;
@@ -281,7 +295,6 @@ function rayAnimation(value = 0) {
 }
 
 function setColor(winner) {
-  console.log(winner);
   let color = winner === 'crossmark' ? '#545454' : '#f2ebd3';
   if (winnerArray[0] === 1) {
     if (winnerArray[1] === 2) {
@@ -306,4 +319,68 @@ function setColor(winner) {
     document.querySelector(`.h-slash${winnerArray[0]}`).style.background = color;
   else if (winnerArray[0] === 2 || winnerArray[0] === 3)
     document.querySelector(`.v-slash${winnerArray[0]}`).style.background = color;
+}
+
+
+function moveAnimation() {
+  console.log("Winner Array :- ", winnerArray);
+  if (winnerArray[1] === 2 || winnerArray[1] === 5 && winnerArray[0] === 4 || winnerArray[1] === 8) {
+    let left = document.querySelector(`.box${winnerArray[0]}`);
+    let right = document.querySelector(`.box${winnerArray[2]}`);
+    let line = document.querySelector(`.h-slash${winnerArray[0]}`);
+    left.style.transform = "translateX(107%)";
+    right.style.transform = "translateX(-107%)";
+    line.style.transform = "scaleX(0)"
+    console.log(left, right, line);
+  }
+  if (winnerArray[1] === 4 || winnerArray[1] === 5 && winnerArray[0] === 2 || winnerArray[1] === 6) {
+    let top = document.querySelector(`.box${winnerArray[0]}`);
+    let buttom = document.querySelector(`.box${winnerArray[2]}`);
+    let line = document.querySelector(`.v-slash${winnerArray[0]}`);
+    top.style.transform = "translateY(107%)";
+    buttom.style.transform = "translateY(-107%)";
+    line.style.transform = "scaleY(0)"
+    console.log(top, buttom, line);
+  }
+  if (winnerArray[1] === 5 && winnerArray[0] === 1) {
+    let top = document.querySelector(`.box${winnerArray[0]}`);
+    let buttom = document.querySelector(`.box${winnerArray[2]}`);
+    let line = document.querySelector(`.r-slash${winnerArray[0]}`);
+    top.style.transform = "translateY(107%)translateX(107%)";
+    buttom.style.transform = "translateY(-107%)translateX(-107%)";
+    line.style.transform = "scaleX(0)"
+    console.log(top, buttom, line);
+  }
+  if (winnerArray[1] === 5 && winnerArray[0] === 3) {
+    let top = document.querySelector(`.box${winnerArray[0]}`);
+    let buttom = document.querySelector(`.box${winnerArray[2]}`);
+    let line = document.querySelector(`.r-slash${winnerArray[0]}`);
+    top.style.transform = "translateY(107%)translateX(-107%)";
+    buttom.style.transform = "translateY(-107%)translateX(107%)";
+    line.style.transform = "scaleY(0)"
+    console.log(top, buttom, line);
+  }
+}
+
+function resetBoxesTransform() {
+  boxes.forEach(item => {
+    item.style.transform = null;
+  })
+}
+
+function transformOriginLine() {
+  let lines = document.getElementsByClassName('ray');
+  lines = Array.from(lines);
+  lines.forEach((item) => {
+    item.style.transformOrigin = "center";
+  })
+}
+function removeTransformOriginLine() {
+  if (winnerArray.length !== 0) {
+    let lines = document.getElementsByClassName('ray');
+    lines = Array.from(lines);
+    lines.forEach((item) => {
+      item.style.setProperty('transform-origin', '--dir');
+    })
+  }
 }
