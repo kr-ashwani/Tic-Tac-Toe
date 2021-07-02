@@ -265,8 +265,19 @@ function rayAnimation(value = 0) {
     else if (winnerArray[1] === 5) {
       document.querySelector('.r-slash1').style.transform = `scalex(${value})`;
     }
-
   }
+  else if (winnerArray[0] === 3) {
+    if (winnerArray[1] === 6) {
+      document.querySelector('.v-slash3').style.transform = `scaley(${value})`;
+    }
+    if (winnerArray[1] === 5) {
+      document.querySelector('.r-slash3').style.transform = `scaley(${value})`;
+    }
+  }
+  else if (winnerArray[0] === 4 || winnerArray[0] === 7)
+    document.querySelector(`.h-slash${winnerArray[0]}`).style.transform = `scalex(${value})`;
+  else if (winnerArray[0] === 2 || winnerArray[0] === 3)
+    document.querySelector(`.v-slash${winnerArray[0]}`).style.transform = `scaley(${value})`;
 }
 
 function setColor(winner) {
@@ -282,6 +293,17 @@ function setColor(winner) {
     else if (winnerArray[1] === 5) {
       document.querySelector('.r-slash1').style.background = color;
     }
-
   }
+  else if (winnerArray[0] === 3) {
+    if (winnerArray[1] === 6) {
+      document.querySelector('.v-slash3').style.background = color;
+    }
+    if (winnerArray[1] === 5) {
+      document.querySelector('.r-slash3').style.background = color;
+    }
+  }
+  else if (winnerArray[0] === 4 || winnerArray[0] === 7)
+    document.querySelector(`.h-slash${winnerArray[0]}`).style.background = color;
+  else if (winnerArray[0] === 2 || winnerArray[0] === 3)
+    document.querySelector(`.v-slash${winnerArray[0]}`).style.background = color;
 }
