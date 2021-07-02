@@ -331,7 +331,6 @@ function moveAnimation() {
     left.style.transform = "translateX(107%)";
     right.style.transform = "translateX(-107%)";
     line.style.transform = "scaleX(0)"
-    console.log(left, right, line);
   }
   if (winnerArray[1] === 4 || winnerArray[1] === 5 && winnerArray[0] === 2 || winnerArray[1] === 6) {
     let top = document.querySelector(`.box${winnerArray[0]}`);
@@ -340,7 +339,6 @@ function moveAnimation() {
     top.style.transform = "translateY(107%)";
     buttom.style.transform = "translateY(-107%)";
     line.style.transform = "scaleY(0)"
-    console.log(top, buttom, line);
   }
   if (winnerArray[1] === 5 && winnerArray[0] === 1) {
     let top = document.querySelector(`.box${winnerArray[0]}`);
@@ -349,7 +347,6 @@ function moveAnimation() {
     top.style.transform = "translateY(107%)translateX(107%)";
     buttom.style.transform = "translateY(-107%)translateX(-107%)";
     line.style.transform = "scaleX(0)"
-    console.log(top, buttom, line);
   }
   if (winnerArray[1] === 5 && winnerArray[0] === 3) {
     let top = document.querySelector(`.box${winnerArray[0]}`);
@@ -358,7 +355,6 @@ function moveAnimation() {
     top.style.transform = "translateY(107%)translateX(-107%)";
     buttom.style.transform = "translateY(-107%)translateX(107%)";
     line.style.transform = "scaleY(0)"
-    console.log(top, buttom, line);
   }
 }
 
@@ -380,7 +376,8 @@ function removeTransformOriginLine() {
     let lines = document.getElementsByClassName('ray');
     lines = Array.from(lines);
     lines.forEach((item) => {
-      item.style.setProperty('transform-origin', '--dir');
+      item.style.setProperty('transform-origin', 'var(--dir)');
+      console.log(item);
     })
   }
 }

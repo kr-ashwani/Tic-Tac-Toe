@@ -32,6 +32,7 @@ body {
   background-color: #14bdac;
   @include display-flex;
   overflow: hidden;
+  position: relative;
 }
 .game-grid {
   width: 350px;
@@ -292,3 +293,18 @@ body {
 // .box3 {
 //   transform: translateX(-115%);
 // }
+
+.message {
+  position: absolute;
+  bottom: 0;
+  width: 250px;
+  height: 100px;
+  @include display-flex;
+  background-color: red;
+  z-index: 10;
+  display: none;
+}
+.message p {
+  font-size: 3rem;
+  font-weight: bolder;
+}
