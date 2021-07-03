@@ -29,7 +29,7 @@ function restart() {
   noOfBoxes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   boxEvent = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   clickCount = 0;
-  userSelect = Array.from(crossCard.classList).includes('shadow') ? "crossmark" : "circlemark";
+  resetPlayerSelect();
   winnerArray = [];
   lineAnimation();
 }
@@ -61,6 +61,20 @@ function lineAnimation() {
   }, 0);
 }
 
+function resetPlayerSelect() {
+  console.log(userSelect);
+  let arr = ['circlemark', 'crossmark'];
+  let compSelect = arr.filter((item) => userSelect !== item);
+  compSelect = document.getElementsByClassName(`${compSelect}`)[0];
+  let check = document.getElementsByClassName(`${userSelect}`)[0];
+  if (!Array.from(check.classList).includes('shadow')) {
+    check.classList.toggle('shadow');
+    compSelect.classList.toggle('shadow');
+    console.log(check);
+    console.log(compSelect);
+  }
+}
+
 
 let circleCard = document.getElementsByClassName('circlemark')[0];
 let crossCard = document.getElementsByClassName('crossmark')[0];
@@ -68,17 +82,24 @@ let crossCard = document.getElementsByClassName('crossmark')[0];
 crossCard.addEventListener('click', playerSelect);
 circleCard.addEventListener('click', playerSelect);
 
+let clickCount = 0;
 let userSelect = "crossmark";
 
-function playerSelect() {
+function playerSelect(p) {
+  console.log(p, this);
   let classlist = Array.from(this.classList);
-  if (!classlist.includes('shadow')) {
-    this.classList.toggle('shadow');
-    let arr = ['circlemark', 'crossmark'];
-    userSelect = this.classList[0];
-    arr.splice(arr.indexOf(this.classList[0]), 1);
-    arr[0] === 'crossmark' ? crossCard.classList.toggle('shadow') : circleCard.classList.toggle('shadow');
+  if (clickCount === 0) {
+    if (!classlist.includes('shadow')) {
+      this.classList.toggle('shadow');
+      let arr = ['circlemark', 'crossmark'];
+      userSelect = this.classList[0];
+      arr.splice(arr.indexOf(this.classList[0]), 1);
+      arr[0] === 'crossmark' ? crossCard.classList.toggle('shadow') : circleCard.classList.toggle('shadow');
+    }
   }
+  else
+    this.classList.toggle('shadow');
+
 }
 
 
@@ -87,7 +108,6 @@ boxes.forEach(item => {
   item.addEventListener('click', userClick);
 });
 
-let clickCount = 0;
 let userSelectBox;
 let user;
 let computer;
@@ -105,6 +125,8 @@ function userClick() {
     boxEvent.splice(boxEvent.indexOf(removeListener), 1);
     this.removeEventListener('click', userClick);
     userSelectBox = this.classList[1];
+    if (clickCount === 5)
+      playerSelect.call(circleCard, computer);
     userTurn(user, this.firstElementChild);
     let zIndexOfOverlay = getComputedStyle(gameOverOverlay).getPropertyValue('z-index');
     if (clickCount <= 4 && zIndexOfOverlay === '-3')
@@ -144,7 +166,8 @@ function addClickToBoxes() {
 
 let noOfBoxes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-function userTurn(user, element) {                     //when user selects the box then its removed
+function userTurn(user, element) {
+  playerSelect.call(crossCard, user);                   //when user selects the box then its removed
   let removeBox = Number(element.parentElement.classList[1].slice(-1));
   noOfBoxes.splice(noOfBoxes.indexOf(removeBox), 1);
   symbolAnimation(user, element);
@@ -157,6 +180,7 @@ function userTurn(user, element) {                     //when user selects the b
 }
 
 function computerTurn(computer) {
+  playerSelect.call(circleCard, computer);
   boxes.forEach(item => {                             //removing event when it's computer's turn
     item.removeEventListener('click', userClick);
   });
