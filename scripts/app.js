@@ -16,7 +16,6 @@ function restart() {
   resetBoxesTransform();                //and adding opacity -5 to winnerCard and removing its class
   removeTransformOriginLine();
   boxes.forEach(item => item.firstElementChild.setAttribute('style', null));
-  lineAnimation();
   resetCrossCircle();
   addClickToBoxes();
   crossCard.addEventListener('click', playerSelect);
@@ -29,6 +28,7 @@ function restart() {
   clickCount = 0;
   userSelect = Array.from(crossCard.classList).includes('shadow') ? "crossmark" : "circlemark";
   winnerArray = [];
+  lineAnimation();
 }
 
 
@@ -145,9 +145,12 @@ function userTurn(user, element) {                     //when user selects the b
   let removeBox = Number(element.parentElement.classList[1].slice(-1));
   noOfBoxes.splice(noOfBoxes.indexOf(removeBox), 1);
   symbolAnimation(user, element);
-  if (getWinner(user)) {
+  let winnerAns = getWinner(user);
+  if (winnerAns) {
     taskOnWinning(user);
   }
+  if (noOfBoxes.length === 0 && !winnerAns)
+    winnerAnimation('draw');
 }
 
 function computerTurn(computer) {
@@ -169,9 +172,8 @@ function computerTurn(computer) {
   noOfBoxes.splice(randomChoice, 1);
   setTimeout(() => {
     symbolAnimation(computer, boxSelected);
-    if (getWinner(computer)) {
+    if (getWinner(computer))
       taskOnWinning(computer);
-    }
   }, 400);
 }
 
@@ -366,7 +368,7 @@ function resetBoxesTransform() {
   let winnerCard = document.getElementsByClassName('winnerCard')[0];
   winnerCard.style.zIndex = '-5';         //arr.lenght=0 wiill not work in DOMTokenList
   let winnerClass = winnerCard.firstElementChild.classList[0];
-  winnerCard.firstElementChild.classList.remove(winnerClass);
+  winnerCard.firstElementChild.classList.remove('cross', 'circle');
   let message = document.getElementsByClassName('message')[0];
   let gameGrid = document.getElementsByClassName('game-grid')[0];
   gameGrid.style.transition = "null";
@@ -382,6 +384,10 @@ function resetBoxesTransform() {
   gameGrid.style.transform = 'scale(1)';
   winnerCard.style.transform = 'scale(1) translateY(0px)';
   message.style.transform = 'translateY(0px)';
+  winnerCard.style.width = '110px';
+  if (message.firstElementChild.textContent === 'DRAW!')
+    winnerCard.removeChild(winnerCard.lastChild);
+  message.firstElementChild.textContent = 'WINNER!';
 }
 
 function transformOriginLine() {
@@ -409,6 +415,7 @@ function taskOnWinning(winner) {     //winner can be either 'crossmark' or 'circ
   let winnerClass = winner === 'crossmark' ? 'cross' : 'circle';
   console.log(winner, " is winner." + " class is ", winnerClass);
   setColor(winner);
+  restartGame.removeEventListener("click", restart);
   gameOverOverlay.style.zIndex = '3';
   let winnerCard = document.getElementsByClassName('winnerCard')[0];
   let message = document.getElementsByClassName('message')[0];
@@ -429,7 +436,7 @@ function taskOnWinning(winner) {     //winner can be either 'crossmark' or 'circ
     winnerCard.style.zIndex = '5';
     winnerCard.style.opacity = '1';
     setTimeout(() => {
-      winnerAnimation();
+      winnerAnimation('win');
     }
       , 225);
   }
@@ -437,21 +444,50 @@ function taskOnWinning(winner) {     //winner can be either 'crossmark' or 'circ
 }
 
 
-function winnerAnimation() {
+function winnerAnimation(gameStatus) {
+  restartGame.removeEventListener("click", restart);
   let winnerCard = document.getElementsByClassName('winnerCard')[0];
   let message = document.getElementsByClassName('message')[0];
   let gameGrid = document.getElementsByClassName('game-grid')[0];
+  if (gameStatus === 'draw')
+    draw();
   setTimeout(() => {
     // winnerCard.style.zIndex = '5';
     gameGrid.style.transform = 'scale(0.5)';
-    winnerCard.style.transform = 'scale(2.5) translateY(-10px)';
+    if (gameStatus === 'draw')
+      winnerCard.style.transform = 'scale(1.5) translateY(0px)';
+    else
+      winnerCard.style.transform = 'scale(2.5) translateY(-10px)';
     setTimeout(() => {
       message.style.transform = 'translateY(-50px)'
-      message.style.opacity = '1'
+      message.style.opacity = '1';
+      restartGame.addEventListener("click", restart);
     }
       , 400);
     gameGrid.style.opacity = '0';
   }
     , 300);
+
+}
+function draw() {
+  let winnerCard = document.getElementsByClassName('winnerCard')[0];
+  let message = document.getElementsByClassName('message')[0];
+  let gameGrid = document.getElementsByClassName('game-grid')[0];
+  winnerCard.firstElementChild.classList.toggle('cross');
+  winnerCard.style.width = '200px';
+  let child = document.createElement('div');
+  child.classList.add('circle');
+  winnerCard.appendChild(child);
+  winnerCard.style.transform = 'scale(0.5)';
+  message.style.zIndex = '5';
+  winnerCard.style.zIndex = '5';
+  winnerCard.style.opacity = '1';
+  message.firstElementChild.textContent = 'DRAW!';
+  message.style.transition = '0.6s cubic-bezier(.17,.67,.4,1.07)';
+  gameGrid.style.transition = "0.6s ease-in-out";
+  winnerCard.style.transition = "0.8s ease-in-out";
+}
+
+function levelOfGame() {
 
 }

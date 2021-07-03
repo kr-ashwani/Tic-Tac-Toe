@@ -19,6 +19,7 @@ body {
   height: 90vh;
   // overflow: hidden;
   @include display-flex;
+  font-family: "Poppins", sans-serif;
 }
 .section {
   width: 100%;
@@ -290,12 +291,15 @@ body {
   position: absolute;
   width: 110px;
   height: 110px;
-  //background-color: #413f39;
+  // background-color: #413f39;
   z-index: -5;
   transform: scale(1);
-  // transform: scale(2.5) translateY(-10px);
+  @include display-flex;
+  transform: scale(1.5) translateY(0px);
 }
-
+.winnerCard > div {
+  position: relative;
+}
 // .game-grid {
 //   transition: 0.6s ease-in-out;
 // }
