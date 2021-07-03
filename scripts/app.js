@@ -13,7 +13,7 @@ let winnerArray = [];
 
 function restart() {
   rayAnimation();
-  resetBoxesTransform();
+  resetBoxesTransform();                //and adding opacity -5 to winnerCard and removing its class
   removeTransformOriginLine();
   boxes.forEach(item => item.firstElementChild.setAttribute('style', null));
   lineAnimation();
@@ -141,30 +141,27 @@ function addClickToBoxes() {
 
 let noOfBoxes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-function userTurn(user, element) {
+function userTurn(user, element) {                     //when user selects the box then its removed
   let removeBox = Number(element.parentElement.classList[1].slice(-1));
   noOfBoxes.splice(noOfBoxes.indexOf(removeBox), 1);
   symbolAnimation(user, element);
   if (getWinner(user)) {
-    console.log(user, " is winner");
-    setColor(user);
-    gameOverOverlay.style.zIndex = '3';
-    setTimeout(() => {
-      rayAnimation(1);
-    }, 500);
-    setTimeout(() => {
-      transformOriginLine();
-    }, 700);
-    setTimeout(() => {
-      moveAnimation();
-    }, 900)
+    taskOnWinning(user);
   }
 }
 
 function computerTurn(computer) {
-  boxes.forEach(item => {
+  boxes.forEach(item => {                             //removing event when it's computer's turn
     item.removeEventListener('click', userClick);
   });
+  setTimeout(() => {                                  //adding event after computer's turn
+    boxes.forEach(item => {                           //but on remaining boxes only
+      if (boxEvent.includes(Number(item.classList[1].slice(-1))))
+        item.addEventListener('click', userClick);
+    });
+  }
+    , 800);                                          //after 800ms user will be able to click b0xes
+
   let randomChoice;
   randomChoice = Math.floor(Math.random() * noOfBoxes.length);
   let boxSelected = document.querySelector(`.box${noOfBoxes[randomChoice]}`).firstElementChild;
@@ -173,28 +170,9 @@ function computerTurn(computer) {
   setTimeout(() => {
     symbolAnimation(computer, boxSelected);
     if (getWinner(computer)) {
-      console.log(computer, " is winner");
-      setColor(computer);
-      gameOverOverlay.style.zIndex = '3';
-      setTimeout(() => {
-        rayAnimation(1);
-      }, 500);
-      setTimeout(() => {
-        transformOriginLine();
-      }, 700);
-      setTimeout(() => {
-        moveAnimation();
-      }, 900)
-
+      taskOnWinning(computer);
     }
   }, 400);
-  setTimeout(() => {
-    boxes.forEach(item => {
-      if (boxEvent.includes(Number(item.classList[1].slice(-1))))
-        item.addEventListener('click', userClick);
-    });
-  }
-    , 800)
 }
 
 
@@ -323,37 +301,60 @@ function setColor(winner) {
 
 
 function moveAnimation() {
-  console.log("Winner Array :- ", winnerArray);
-  if (winnerArray[1] === 2 || winnerArray[1] === 5 && winnerArray[0] === 4 || winnerArray[1] === 8) {
-    let left = document.querySelector(`.box${winnerArray[0]}`);
-    let right = document.querySelector(`.box${winnerArray[2]}`);
-    let line = document.querySelector(`.h-slash${winnerArray[0]}`);
+  let left, right, top, bottom, mid;
+  left = document.querySelector(`.box${winnerArray[0]}`);
+  mid = document.querySelector(`.box${winnerArray[1]}`)
+  right = document.querySelector(`.box${winnerArray[2]}`);
+  line = document.querySelector(`.h-slash${winnerArray[0]}`);
+  if (winnerArray[0] === 1 && winnerArray[1] == 2) {
+    left.style.transform = "translateX(107%) translateY(107%)";
+    mid.style.transform = "translateY(107%)";
+    right.style.transform = "translateX(-107%) translateY(107%)";
+    line.style.transform = "scaleX(0) translateY(120px)"
+  }
+  else if (winnerArray[0] === 7 && winnerArray[1] == 8) {
+    left.style.transform = "translateX(107%) translateY(-107%)";
+    mid.style.transform = "translateY(-107%)";
+    right.style.transform = "translateX(-107%) translateY(-107%)";
+    line.style.transform = "scaleX(0) translateY(-120px)"
+  }
+  else if (winnerArray[0] === 1 && winnerArray[1] == 4) {
+    line = document.querySelector(`.v-slash${winnerArray[0]}`);
+    left.style.transform = "translateX(107%) translateY(107%)";
+    mid.style.transform = "translateX(107%)";
+    right.style.transform = "translateX(107%) translateY(-107%)";
+    line.style.transform = "scaleY(0) translateX(120px)"
+  }
+  else if (winnerArray[0] === 3 && winnerArray[1] == 6) {
+    line = document.querySelector(`.v-slash${winnerArray[0]}`);
+    left.style.transform = "translateX(-107%) translateY(107%)";
+    mid.style.transform = "translateX(-107%)";
+    right.style.transform = "translateX(-107%) translateY(-107%)";
+    line.style.transform = "scaleY(0) translateX(-120px)"
+  }
+  else if (winnerArray[0] === 4 && winnerArray[1] === 5) {
     left.style.transform = "translateX(107%)";
     right.style.transform = "translateX(-107%)";
     line.style.transform = "scaleX(0)"
   }
-  if (winnerArray[1] === 4 || winnerArray[1] === 5 && winnerArray[0] === 2 || winnerArray[1] === 6) {
-    let top = document.querySelector(`.box${winnerArray[0]}`);
-    let buttom = document.querySelector(`.box${winnerArray[2]}`);
-    let line = document.querySelector(`.v-slash${winnerArray[0]}`);
-    top.style.transform = "translateY(107%)";
-    buttom.style.transform = "translateY(-107%)";
+  else if (winnerArray[0] === 2 && winnerArray[1] === 5) {
+    line = document.querySelector(`.v-slash${winnerArray[0]}`);
+    left.style.transform = "translateY(107%)";
+    right.style.transform = "translateY(-107%)";
     line.style.transform = "scaleY(0)"
   }
-  if (winnerArray[1] === 5 && winnerArray[0] === 1) {
-    let top = document.querySelector(`.box${winnerArray[0]}`);
-    let buttom = document.querySelector(`.box${winnerArray[2]}`);
-    let line = document.querySelector(`.r-slash${winnerArray[0]}`);
-    top.style.transform = "translateY(107%)translateX(107%)";
-    buttom.style.transform = "translateY(-107%)translateX(-107%)";
+  else if (winnerArray[1] === 5 && winnerArray[0] === 1) {
+    line = document.querySelector(`.r-slash${winnerArray[0]}`);
+    left.style.transform = "translateY(107%)translateX(107%)";
+    right.style.transform = "translateY(-107%)translateX(-107%)";
     line.style.transform = "scaleX(0)"
   }
-  if (winnerArray[1] === 5 && winnerArray[0] === 3) {
-    let top = document.querySelector(`.box${winnerArray[0]}`);
-    let buttom = document.querySelector(`.box${winnerArray[2]}`);
-    let line = document.querySelector(`.r-slash${winnerArray[0]}`);
-    top.style.transform = "translateY(107%)translateX(-107%)";
-    buttom.style.transform = "translateY(-107%)translateX(107%)";
+  else if (winnerArray[1] === 5 && winnerArray[0] === 3) {
+    left = document.querySelector(`.box${winnerArray[0]}`);
+    right = document.querySelector(`.box${winnerArray[2]}`);
+    line = document.querySelector(`.r-slash${winnerArray[0]}`);
+    left.style.transform = "translateY(107%)translateX(-107%)";
+    right.style.transform = "translateY(-107%)translateX(107%)";
     line.style.transform = "scaleY(0)"
   }
 }
@@ -361,7 +362,26 @@ function moveAnimation() {
 function resetBoxesTransform() {
   boxes.forEach(item => {
     item.style.transform = null;
-  })
+  });
+  let winnerCard = document.getElementsByClassName('winnerCard')[0];
+  winnerCard.style.zIndex = '-5';         //arr.lenght=0 wiill not work in DOMTokenList
+  let winnerClass = winnerCard.firstElementChild.classList[0];
+  winnerCard.firstElementChild.classList.remove(winnerClass);
+  let message = document.getElementsByClassName('message')[0];
+  let gameGrid = document.getElementsByClassName('game-grid')[0];
+  gameGrid.style.transition = "null";
+  message.style.transition = "null";
+  winnerCard.style.transition = "null";
+  winnerCard.style.transform = 'null';
+  message.style.transform = 'null'
+  winnerCard.style.opacity = '0';
+  message.style.opacity = '0'
+  gameGrid.style.opacity = '1';
+  message.style.zIndex = '-5';
+  winnerCard.style.zIndex = '-5';
+  gameGrid.style.transform = 'scale(1)';
+  winnerCard.style.transform = 'scale(1) translateY(0px)';
+  message.style.transform = 'translateY(0px)';
 }
 
 function transformOriginLine() {
@@ -377,7 +397,61 @@ function removeTransformOriginLine() {
     lines = Array.from(lines);
     lines.forEach((item) => {
       item.style.setProperty('transform-origin', 'var(--dir)');
-      console.log(item);
     })
   }
+}
+
+
+
+
+function taskOnWinning(winner) {     //winner can be either 'crossmark' or 'circle'
+  console.log("winner Array is :-  ", winnerArray);
+  let winnerClass = winner === 'crossmark' ? 'cross' : 'circle';
+  console.log(winner, " is winner." + " class is ", winnerClass);
+  setColor(winner);
+  gameOverOverlay.style.zIndex = '3';
+  let winnerCard = document.getElementsByClassName('winnerCard')[0];
+  let message = document.getElementsByClassName('message')[0];
+  let gameGrid = document.getElementsByClassName('game-grid')[0];
+  message.style.transition = '0.6s cubic-bezier(.17,.67,.4,1.07)';
+  gameGrid.style.transition = "0.6s ease-in-out";
+  winnerCard.style.transition = "0.8s ease-in-out";
+  message.style.zIndex = '5';
+  setTimeout(() => {
+    rayAnimation(1);
+  }, 500);
+  setTimeout(() => {
+    transformOriginLine();
+  }, 700);
+  setTimeout(() => {
+    winnerCard.firstElementChild.classList.toggle(winnerClass);
+    moveAnimation();
+    winnerCard.style.zIndex = '5';
+    winnerCard.style.opacity = '1';
+    setTimeout(() => {
+      winnerAnimation();
+    }
+      , 225);
+  }
+    , 900)
+}
+
+
+function winnerAnimation() {
+  let winnerCard = document.getElementsByClassName('winnerCard')[0];
+  let message = document.getElementsByClassName('message')[0];
+  let gameGrid = document.getElementsByClassName('game-grid')[0];
+  setTimeout(() => {
+    // winnerCard.style.zIndex = '5';
+    gameGrid.style.transform = 'scale(0.5)';
+    winnerCard.style.transform = 'scale(2.5) translateY(-10px)';
+    setTimeout(() => {
+      message.style.transform = 'translateY(-50px)'
+      message.style.opacity = '1'
+    }
+      , 400);
+    gameGrid.style.opacity = '0';
+  }
+    , 300);
+
 }
