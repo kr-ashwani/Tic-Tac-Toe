@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic-Tac-Toe</title>
   <link rel="stylesheet" href="/styles/style.css">
+  <script src="https://kit.fontawesome.com/bd7a6ec15e.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="section">
@@ -12,12 +13,17 @@
     <div class="level-share">
       <div class="level">Level
         <select name="level">
-          <option value="easy">Easy</option>
-          <option selected value="medium">Medium</option>
+          <option class="easy" value="easy">Easy</option>
+          <option class="medium"selected value="medium">Medium</option>
         </select>
       </div>
-      <div class="share">
-        <div class="share-box"></div>
+      <div class="share"><i class="fas fa-share-alt"></i>
+        <div class="share-box">
+          <i class="fab fa-facebook-square"></i>
+          <i class="fab fa-twitter-square"></i>
+          <i class="fab fa-whatsapp-square"></i>
+          <i class="fab fa-instagram-square"></i>
+        </div>
       </div>
     </div>
     <div class="score">
@@ -68,7 +74,7 @@
       </div>
     </div>
     <div class="restart">
-      <button>RESTART GAME</button>
+      <button>Restart Game</button>
     </div>
   <script src="/scripts/app.js"></script>
 </body>

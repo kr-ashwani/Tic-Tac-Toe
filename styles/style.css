@@ -21,9 +21,10 @@ body {
 
 .section {
   width: 100%;
-  height: 100%;
+  border-radius: 15px;
+  height: 95%;
   background-color: rgba(241, 235, 235, 0.315);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,12 +93,6 @@ body {
   background-color: #0da192;
   width: 100%;
   transform: scaley(1);
-}
-
-@media screen and (max-width: 900px) {
-  .gameBoard {
-    width: 100%;
-  }
 }
 
 .boxes {
@@ -221,23 +216,6 @@ body {
   height: 55%;
 }
 
-@media screen and (max-width: 520px) {
-  .score {
-    width: 100%;
-  }
-  .crossmark,
-  .circlemark {
-    width: 140px;
-    height: 35px;
-  }
-  .crossmark {
-    margin-left: 10px;
-  }
-  .circlemark {
-    margin-right: 20px;
-  }
-}
-
 .lineanimation {
   width: 100%;
   height: 100%;
@@ -351,4 +329,117 @@ body {
 
 .winnerCard > div {
   position: relative;
+}
+
+.restart > button {
+  width: 150px;
+  height: 40px;
+  font-size: 1.3rem;
+  background-color: #14bdac;
+  border: 0px;
+  color: white;
+  border-radius: 8px;
+}
+
+.section h1 {
+  font-size: 3rem;
+}
+
+.level {
+  font-size: 1.1rem;
+}
+
+.level-share {
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.share {
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  color: #545454;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  position: relative;
+}
+
+.share-box {
+  position: absolute;
+  width: 200px;
+  height: 60px;
+  clip-path: polygon(82% 14%, 87% 0, 91% 14%, 100% 14%, 100% 100%, 0 100%, 0 15%);
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  right: 0;
+  background: rgba(235, 229, 229, 0.815);
+  z-index: -1;
+  border-radius: 5px;
+  border: 1px solid #e2e0e0;
+  transform: translateY(30px);
+  opacity: 0;
+  backdrop-filter: blur(10px);
+  transition: 0.2s ease-in;
+}
+
+.share-box > * {
+  margin-top: 10px;
+}
+
+.fa-facebook-square {
+  color: #4267b2;
+}
+
+.fa-twitter-square {
+  color: #1da1f2;
+}
+
+.fa-whatsapp-square {
+  color: #25d366;
+}
+
+.fa-instagram-square {
+  color: #e1306c;
+}
+
+@media screen and (max-width: 520px) {
+  .score {
+    width: 100%;
+  }
+  .crossmark,
+  .circlemark {
+    width: 140px;
+    height: 35px;
+  }
+  .level-share {
+    width: 95%;
+  }
+  .crossmark {
+    margin-left: 10px;
+  }
+  .circlemark {
+    margin-right: 20px;
+  }
+  .section {
+    width: 100%;
+    border-radius: 0px;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .gameBoard {
+    width: 100%;
+  }
 }

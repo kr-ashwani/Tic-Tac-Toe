@@ -635,3 +635,22 @@ function checkThirdBox() {
     return firstCheck && secondCheck;
   }
 }
+
+
+let share = document.getElementsByClassName('fa-share-alt')[0];
+
+share.addEventListener("click", shareAnimation);
+let remember = 1;
+function shareAnimation() {
+  let shareBox = document.getElementsByClassName('share-box')[0];
+  if (remember === 1) {
+    shareBox.style.zIndex = '2';
+    shareBox.style.opacity = '1 ';
+    shareBox.style.transform = 'translateY(50px)'; remember++;
+  }
+  else if (remember === 2) {
+    shareBox.style.zIndex = '-1';
+    shareBox.style.opacity = '0';
+    shareBox.style.transform = 'translateY(30px)'; remember--;
+  }
+}
