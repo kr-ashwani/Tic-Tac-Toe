@@ -173,6 +173,7 @@ function userTurn(user, element) {
   symbolAnimation(user, element);
   let winnerAns = getWinner(user);
   if (winnerAns) {
+    playerSelect.call(crossCard, user);                   //when user selects the box then its removed
     taskOnWinning(user);
   }
   if (noOfBoxes.length === 0 && !winnerAns)
