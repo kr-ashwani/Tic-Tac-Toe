@@ -646,7 +646,7 @@ function shareAnimation() {
   if (remember === 1) {
     shareBox.style.zIndex = '2';
     shareBox.style.opacity = '1 ';
-    shareBox.style.transform = 'translateY(50px)'; remember++;
+    shareBox.style.transform = 'translateY(60px)'; remember++;
   }
   else if (remember === 2) {
     shareBox.style.zIndex = '-1';

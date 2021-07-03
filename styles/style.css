@@ -372,10 +372,10 @@ body {
 
 .share-box {
   position: absolute;
-  width: 200px;
-  height: 60px;
+  width: 250px;
+  height: 70px;
   clip-path: polygon(82% 14%, 87% 0, 91% 14%, 100% 14%, 100% 100%, 0 100%, 0 15%);
-  font-size: 2.5rem;
+  font-size: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
