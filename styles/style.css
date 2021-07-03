@@ -133,21 +133,15 @@ body {
   justify-content: center;
   flex-direction: row;
   border-radius: 6px;
-  border-top: 2px solid #5454544f;
-  border-bottom: 2px solid #5454544f;
-  border-left: 2px solid #5454544f;
-  border-right: 2px solid #5454544f;
+  box-shadow: -1.6px -1.6px #5454544f, 0px 1.6px #5454544f, -1.6px 0px #5454544f, 0px -1.6px #5454544f, 0px 1.9px #5454544f, 1.6px 0px #5454544f;
   transition: 0.2s linear;
   justify-content: space-around;
 }
 
 .shadow {
-  border-top: 2px solid #5454544f;
-  border-bottom: 0px solid #5454544f;
-  border-left: 2px solid #5454544f;
-  border-right: 2px solid #5454544f;
   box-shadow: -1.6px -1.6px #d4d0d0, 0px 1.6px #14bdac, -1.6px 0px #d4d0d0, 0px -1.6px #d4d0d0, 0px 1.9px #14bdac, 1.6px 0px #d4d0d0, 0px 3.6px 10px rgba(37, 30, 30, 0.4);
   box-shadow: 0px 1.6px #14bdac, 0px 1.9px #14bdac;
+  box-shadow: -1.6px -1.6px #5454544f, 0px 1.6px #14bdac, -1.6px 0px #5454544f, 0px -1.6px #5454544f, 0px 1.9px #5454544f, 1.6px 0px #5454544f, 0px 3.6px 10px rgba(37, 30, 30, 0.4);
 }
 
 .crossmark > p:first-child,
