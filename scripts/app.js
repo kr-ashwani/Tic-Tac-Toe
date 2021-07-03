@@ -13,6 +13,7 @@ levelButton.addEventListener("change", removeOverlay);
 restartGame.addEventListener("click", restart);
 restartGame.addEventListener("click", removeOverlay);
 let winnerArray = [];
+let gameInformation = document.getElementsByClassName('information')[0].firstElementChild;
 
 function restart() {
   rayAnimation();
@@ -62,7 +63,6 @@ function lineAnimation() {
 }
 
 function resetPlayerSelect() {
-  console.log(userSelect);
   let arr = ['circlemark', 'crossmark'];
   let compSelect = arr.filter((item) => userSelect !== item);
   compSelect = document.getElementsByClassName(`${compSelect}`)[0];
@@ -70,8 +70,6 @@ function resetPlayerSelect() {
   if (!Array.from(check.classList).includes('shadow')) {
     check.classList.toggle('shadow');
     compSelect.classList.toggle('shadow');
-    console.log(check);
-    console.log(compSelect);
   }
 }
 
@@ -85,8 +83,7 @@ circleCard.addEventListener('click', playerSelect);
 let clickCount = 0;
 let userSelect = "crossmark";
 
-function playerSelect(p) {
-  console.log(p, this);
+function playerSelect() {
   let classlist = Array.from(this.classList);
   if (clickCount === 0) {
     if (!classlist.includes('shadow')) {
@@ -96,6 +93,10 @@ function playerSelect(p) {
       arr.splice(arr.indexOf(this.classList[0]), 1);
       arr[0] === 'crossmark' ? crossCard.classList.toggle('shadow') : circleCard.classList.toggle('shadow');
     }
+    if (userSelect === 'crossmark')
+      gameInformation.textContent = "You opted for X";
+    else
+      gameInformation.textContent = "You opted for O";
   }
   else
     this.classList.toggle('shadow');
@@ -167,12 +168,19 @@ function addClickToBoxes() {
 let noOfBoxes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 function userTurn(user, element) {
+  if (user === 'crossmark' && winnerArray.length !== 3) {
+    setTimeout(() => { gameInformation.textContent = "O's Turn"; console.log("a"); }, 200);
+  }
+  else if (user !== 'crossmark' && winnerArray.length !== 3) {
+    setTimeout(() => { gameInformation.textContent = "X's Turn"; console.log("b"); }, 200);
+  }
   playerSelect.call(crossCard, user);                   //when user selects the box then its removed
   let removeBox = Number(element.parentElement.classList[1].slice(-1));
   noOfBoxes.splice(noOfBoxes.indexOf(removeBox), 1);
   symbolAnimation(user, element);
   let winnerAns = getWinner(user);
   if (winnerAns) {
+
     playerSelect.call(crossCard, user);                   //when user selects the box then its removed
     taskOnWinning(user);
   }
@@ -181,6 +189,12 @@ function userTurn(user, element) {
 }
 
 function computerTurn(computer) {
+  if (computer === 'crossmark' && winnerArray.length !== 3) {
+    setTimeout(() => { gameInformation.textContent = "O's Turn"; console.log("c"); }, 850);
+  }
+  else if (computer !== 'crossmark' && winnerArray.length !== 3) {
+    setTimeout(() => { gameInformation.textContent = "X's Turn"; console.log("d"); }, 850);
+  }
   playerSelect.call(circleCard, computer);
   boxes.forEach(item => {                             //removing event when it's computer's turn
     item.removeEventListener('click', userClick);
@@ -489,6 +503,10 @@ function taskOnWinning(winner) {     //winner can be either 'crossmark' or 'circ
   gameGrid.style.transition = "0.6s ease-in-out";
   winnerCard.style.transition = "0.8s ease-in-out";
   message.style.zIndex = '5';
+  if (winnerClass === 'cross')
+    setTimeout(() => gameInformation.textContent = "X is winner", 500);
+  else
+    setTimeout(() => gameInformation.textContent = "O is winner", 500);
   setTimeout(() => {
     rayAnimation(1);
   }, 500);
@@ -534,6 +552,7 @@ function winnerAnimation(gameStatus) {
 
 }
 function draw() {
+  setTimeout(() => gameInformation.textContent = "DRAW!", 200);
   let winnerCard = document.getElementsByClassName('winnerCard')[0];
   let crossCard = document.querySelector('.winnerCard').firstElementChild;
   let circleCard = document.querySelector('.winnerCard').lastElementChild;
