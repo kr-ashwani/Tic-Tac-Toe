@@ -189,6 +189,8 @@ function computerTurn(computer) {
       if (boxEvent.includes(Number(item.classList[1].slice(-1))))
         item.addEventListener('click', userClick);
     });
+    playerSelect.call(circleCard, computer);
+    playerSelect.call(crossCard, user);                   //when user selects the box then its removed
   }
     , 800);                                          //after 800ms user will be able to click b0xes
   let boxSelected = levelOfGame();
