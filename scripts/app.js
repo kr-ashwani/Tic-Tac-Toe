@@ -16,6 +16,8 @@ let winnerArray = [];
 let gameInformation = document.getElementsByClassName('information')[0].firstElementChild;
 
 function restart() {
+  lineAnimation();
+  resetGameInformation();
   rayAnimation();
   resetBoxesTransform();                //and adding opacity -5 to winnerCard and removing its class
   removeTransformOriginLine();
@@ -32,9 +34,13 @@ function restart() {
   clickCount = 0;
   resetPlayerSelect();
   winnerArray = [];
-  lineAnimation();
 }
-
+function resetGameInformation() {
+  if (userSelect === 'crossmark')
+    gameInformation.textContent = "You opted for X";
+  else
+    gameInformation.textContent = "You opted for O";
+}
 
 lineAnimation();
 function lineAnimation() {
