@@ -244,8 +244,10 @@ function getWinner(symbol, noOfBoxes = 3) {
       closeToWin = [...calcArray];
       if (count === 3)
         winnerArray = [...calcArray];
-      if (checkThirdBox())
-        continue;
+      if (count === 2) {
+        if (checkThirdBox())
+          continue;
+      }
       return true;
     }
   }
@@ -261,8 +263,10 @@ function getWinner(symbol, noOfBoxes = 3) {
       closeToWin = [...calcArray];
       if (count === 3)
         winnerArray = [...calcArray];
-      if (checkThirdBox())
-        continue;
+      if (count === 2) {
+        if (checkThirdBox())
+          continue;
+      }
       return true;
     }
   }
