@@ -7,7 +7,8 @@ let boxes = document.getElementsByClassName('boxes');
 boxes = Array.from(boxes);
 const restartGame = document.querySelector('.restart>button');
 let gameOverOverlay = document.querySelector('.lineanimation');
-
+let levelButton = document.querySelector('.level > select');
+levelButton.addEventListener("change", restart);
 restartGame.addEventListener("click", restart);
 let winnerArray = [];
 
@@ -164,12 +165,7 @@ function computerTurn(computer) {
     });
   }
     , 800);                                          //after 800ms user will be able to click b0xes
-
-  let randomChoice;
-  randomChoice = Math.floor(Math.random() * noOfBoxes.length);
-  let boxSelected = document.querySelector(`.box${noOfBoxes[randomChoice]}`).firstElementChild;
-  boxEvent.splice(boxEvent.indexOf(noOfBoxes[randomChoice]), 1);
-  noOfBoxes.splice(randomChoice, 1);
+  let boxSelected = levelOfGame();
   setTimeout(() => {
     symbolAnimation(computer, boxSelected);
     if (getWinner(computer))
@@ -180,63 +176,97 @@ function computerTurn(computer) {
 
 
 
-
-function getWinner(symbol) {
+let closeToWin = [];
+function getWinner(symbol, noOfBoxes = 3) {
   symbol = symbol === 'crossmark' ? 'cross' : 'circle';
   let compareBox;
+  closeToWin = [];
+  let calcArray = [];
   let rowLast = 3, colLast = 7;
   let count = 0, j = 1;
   for (let i = 1; i <= 3; i++) {
     count = 0;
     for (let k = j; k <= rowLast; k++) {
       compareBox = document.querySelector(`.box${k}`).firstElementChild.classList[0];
+      calcArray.push(k);
       if (compareBox === symbol) {
-        count++; winnerArray.push(k);
+        count++;
       }
-      if (count === 3)
+      if (count === noOfBoxes) {
+        closeToWin = [...calcArray];
+        if (count === 3)
+          winnerArray = [...calcArray];
+        if (count === 2) {
+          if (checkThirdBox())
+            continue;
+        }
         return true;
+      }
     }
-    winnerArray.length = 0;
+    calcArray.length = 0;
     j += 3;
     rowLast += 3;
   }
-  winnerArray.length = 0;
+  calcArray.length = 0;
   j = 1; count = 0;
   for (let i = 1; i <= 3; i++) {
     count = 0;
     for (let k = j; k <= colLast; k = k + 3) {
       compareBox = document.querySelector(`.box${k}`).firstElementChild.classList[0];
+      calcArray.push(k);
       if (compareBox === symbol) {
-        count++; winnerArray.push(k);
+        count++;
       }
-      if (count === 3)
+      if (count === noOfBoxes) {
+        closeToWin = [...calcArray];
+        if (count === 3)
+          winnerArray = [...calcArray];
+        if (count === 2) {
+          if (checkThirdBox())
+            continue;
+        }
         return true;
+      }
     }
-    winnerArray.length = 0;
+    calcArray.length = 0;
     j++;
     colLast++;
   }
-  winnerArray.length = 0;
+  calcArray.length = 0;
   count = 0;
   for (let i = 1; i <= 9; i = i + 4) {
     compareBox = document.querySelector(`.box${i}`).firstElementChild.classList[0];
+    calcArray.push(i);
     if (compareBox === symbol) {
-      count++; winnerArray.push(i);
+      count++;
     }
-    if (count === 3)
+    if (count === noOfBoxes) {
+      closeToWin = [...calcArray];
+      if (count === 3)
+        winnerArray = [...calcArray];
+      if (checkThirdBox())
+        continue;
       return true;
+    }
   }
-  winnerArray.length = 0;
+  calcArray.length = 0;
   count = 0;
   for (let i = 3; i <= 7; i = i + 2) {
     compareBox = document.querySelector(`.box${i}`).firstElementChild.classList[0];
+    calcArray.push(i);
     if (compareBox === symbol) {
-      count++; winnerArray.push(i);
+      count++;
     }
-    if (count === 3)
+    if (count === noOfBoxes) {
+      closeToWin = [...calcArray];
+      if (count === 3)
+        winnerArray = [...calcArray];
+      if (checkThirdBox())
+        continue;
       return true;
+    }
   }
-  winnerArray.length = 0;
+  calcArray.length = 0;
   return false;
 }
 
@@ -367,7 +397,6 @@ function resetBoxesTransform() {
   });
   let winnerCard = document.getElementsByClassName('winnerCard')[0];
   winnerCard.style.zIndex = '-5';         //arr.lenght=0 wiill not work in DOMTokenList
-  let winnerClass = winnerCard.firstElementChild.classList[0];
   winnerCard.firstElementChild.classList.remove('cross', 'circle');
   let message = document.getElementsByClassName('message')[0];
   let gameGrid = document.getElementsByClassName('game-grid')[0];
@@ -452,7 +481,6 @@ function winnerAnimation(gameStatus) {
   if (gameStatus === 'draw')
     draw();
   setTimeout(() => {
-    // winnerCard.style.zIndex = '5';
     gameGrid.style.transform = 'scale(0.5)';
     if (gameStatus === 'draw')
       winnerCard.style.transform = 'scale(1.5) translateY(0px)';
@@ -488,6 +516,60 @@ function draw() {
   winnerCard.style.transition = "0.8s ease-in-out";
 }
 
+let selectOneBox;
 function levelOfGame() {
+  if (levelButton.value === 'easy')
+    return randomBoxSelection();
+  else if (levelButton.value === 'medium') {
+    if (getWinner(computer, 2)) {
+      console.log(user, SelectOneBox);
+      let boxSelected = document.querySelector(`.box${selectOneBox}`).firstElementChild;
+      boxEvent.splice(selectOneBox, 1);
+      noOfBoxes.splice(noOfBoxes.indexOf(selectOneBox), 1);
+      return boxSelected;
+    }
+    else if (getWinner(user, 2)) {
+      console.log(user, selectOneBox);
+      let boxSelected = document.querySelector(`.box${selectOneBox}`).firstElementChild;
+      boxEvent.splice(selectOneBox, 1);
+      noOfBoxes.splice(noOfBoxes.indexOf(selectOneBox), 1);
+      return boxSelected;
+    }
+    else
+      return randomBoxSelection();
+  }
+}
 
+function randomBoxSelection() {
+  let randomChoice;
+  randomChoice = Math.floor(Math.random() * noOfBoxes.length);
+  let boxSelected = document.querySelector(`.box${noOfBoxes[randomChoice]}`).firstElementChild;
+  boxEvent.splice(boxEvent.indexOf(noOfBoxes[randomChoice]), 1);
+  noOfBoxes.splice(randomChoice, 1);
+  return boxSelected;
+}
+
+function checkThirdBox() {
+  if (closeToWin.length === 2) {
+    let thirdBox = document.querySelector(`.box${closeToWin[1] + closeToWin[1] - closeToWin[0]}`).firstElementChild;
+    if (thirdBox.classList.length !== 0)
+      return true;
+    else
+      selectOneBox = closeToWin[1] + closeToWin[1] - closeToWin[0];
+  }
+  else {
+    console.log(closeToWin);
+    let firstCheck, secondCheck;
+    let firstBox = document.querySelector(`.box${closeToWin[0]}`).firstElementChild;
+    let secondBox = document.querySelector(`.box${closeToWin[1]}`).firstElementChild;
+    if (firstBox.classList.length !== 0) {
+      firstCheck = true;
+      selectOneBox = closeToWin[1];
+    }
+    if (secondBox.classList.length !== 0) {
+      secondCheck = true;
+      selectOneBox = closeToWin[0];
+    }
+    return firstCheck && secondCheck;
+  }
 }
