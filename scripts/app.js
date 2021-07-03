@@ -522,16 +522,14 @@ function levelOfGame() {
     return randomBoxSelection();
   else if (levelButton.value === 'medium') {
     if (getWinner(computer, 2)) {
-      console.log(user, SelectOneBox);
       let boxSelected = document.querySelector(`.box${selectOneBox}`).firstElementChild;
-      boxEvent.splice(selectOneBox, 1);
+      boxEvent.splice(boxEvent.indexOf(selectOneBox), 1);
       noOfBoxes.splice(noOfBoxes.indexOf(selectOneBox), 1);
       return boxSelected;
     }
     else if (getWinner(user, 2)) {
-      console.log(user, selectOneBox);
       let boxSelected = document.querySelector(`.box${selectOneBox}`).firstElementChild;
-      boxEvent.splice(selectOneBox, 1);
+      boxEvent.splice(boxEvent.indexOf(selectOneBox), 1);
       noOfBoxes.splice(noOfBoxes.indexOf(selectOneBox), 1);
       return boxSelected;
     }
@@ -558,7 +556,6 @@ function checkThirdBox() {
       selectOneBox = closeToWin[1] + closeToWin[1] - closeToWin[0];
   }
   else {
-    console.log(closeToWin);
     let firstCheck, secondCheck;
     let firstBox = document.querySelector(`.box${closeToWin[0]}`).firstElementChild;
     let secondBox = document.querySelector(`.box${closeToWin[1]}`).firstElementChild;
