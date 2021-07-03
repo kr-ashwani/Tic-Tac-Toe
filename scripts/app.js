@@ -432,6 +432,10 @@ function resetBoxesTransform() {
   winnerCard.firstElementChild.classList.remove('cross', 'circle');
   let message = document.getElementsByClassName('message')[0];
   let gameGrid = document.getElementsByClassName('game-grid')[0];
+  let crossCard = document.querySelector('.winnerCard').firstElementChild;
+  let circleCard = document.querySelector('.winnerCard').lastElementChild;
+  crossCard.style.left = "0px";
+  circleCard.style.right = "0px";
   gameGrid.style.transition = "null";
   message.style.transition = "null";
   winnerCard.style.transition = "null";
@@ -515,7 +519,7 @@ function winnerAnimation(gameStatus) {
   setTimeout(() => {
     gameGrid.style.transform = 'scale(0.5)';
     if (gameStatus === 'draw')
-      winnerCard.style.transform = 'scale(1.5) translateY(0px)';
+      winnerCard.style.transform = 'scale(1.8) translateY(0px)';
     else
       winnerCard.style.transform = 'scale(2.5) translateY(-10px)';
     setTimeout(() => {
@@ -531,9 +535,13 @@ function winnerAnimation(gameStatus) {
 }
 function draw() {
   let winnerCard = document.getElementsByClassName('winnerCard')[0];
+  let crossCard = document.querySelector('.winnerCard').firstElementChild;
+  let circleCard = document.querySelector('.winnerCard').lastElementChild;
   let message = document.getElementsByClassName('message')[0];
   let gameGrid = document.getElementsByClassName('game-grid')[0];
   winnerCard.firstElementChild.classList.toggle('cross');
+  crossCard.style.left = '20px';
+  circleCard.style.right = '20px';
   winnerCard.style.width = '200px';
   let child = document.createElement('div');
   child.classList.add('circle');
