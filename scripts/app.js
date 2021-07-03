@@ -9,7 +9,9 @@ const restartGame = document.querySelector('.restart>button');
 let gameOverOverlay = document.querySelector('.lineanimation');
 let levelButton = document.querySelector('.level > select');
 levelButton.addEventListener("change", restart);
+levelButton.addEventListener("change", removeOverlay);
 restartGame.addEventListener("click", restart);
+restartGame.addEventListener("click", removeOverlay);
 let winnerArray = [];
 
 function restart() {
@@ -275,7 +277,6 @@ function getWinner(symbol, noOfBoxes = 3) {
 }
 
 
-restartGame.addEventListener("click", removeOverlay);
 function removeOverlay() {
   let zIndexOfOverlay = getComputedStyle(gameOverOverlay).getPropertyValue('z-index');
   if (zIndexOfOverlay === '3')
