@@ -102,11 +102,23 @@ function playerSelect() {
       userSelect = this.classList[0];
       arr.splice(arr.indexOf(this.classList[0]), 1);
       arr[0] === 'crossmark' ? crossCard.classList.toggle('shadow') : circleCard.classList.toggle('shadow');
+      if (displayCrossScore.textContent !== '-' || displayCircleScore.textContent !== '-') {
+        displayCrossScore.textContent = '-';
+        console.log("hello");
+        displayCircleScore.textContent = '-';
+        displayCrossScore.style.marginTop = '-5px';
+        displayCrossScore.style.fontSize = '2.3rem';
+        displayCrossScore.style.fontWeight = '500';
+        displayCircleScore.style.marginTop = '-5px';
+        displayCircleScore.style.fontSize = '2.3rem';
+        displayCircleScore.style.fontWeight = '500';
+      }
     }
     if (userSelect === 'crossmark')
       gameInformation.textContent = "You opted for X";
     else
       gameInformation.textContent = "You opted for O";
+    console.log("hola");
   }
   else
     this.classList.toggle('shadow');
@@ -189,9 +201,7 @@ function userTurn(user, element) {
   noOfBoxes.splice(noOfBoxes.indexOf(removeBox), 1);
   symbolAnimation(user, element);
   let winnerAns = getWinner(user);
-  if (winnerAns) {
-
-    playerSelect.call(crossCard, user);                   //when user selects the box then its removed
+  if (winnerAns) {                //when user selects the box then its removed
     taskOnWinning(user);
   }
   if (noOfBoxes.length === 0 && !winnerAns)
@@ -504,6 +514,7 @@ function taskOnWinning(winner) {     //winner can be either 'crossmark' or 'circ
   let winnerClass = winner === 'crossmark' ? 'cross' : 'circle';
   console.log(winner, " is winner." + " class is ", winnerClass);
   setColor(winner);
+  scoreUpatde(winner);
   restartGame.removeEventListener("click", restart);
   gameOverOverlay.style.zIndex = '3';
   let winnerCard = document.getElementsByClassName('winnerCard')[0];
@@ -655,5 +666,25 @@ function shareAnimation() {
     shareBox.style.zIndex = '-1';
     shareBox.style.opacity = '0';
     shareBox.style.transform = 'translateY(30px)'; remember--;
+  }
+}
+
+
+function scoreUpatde(symbol) {
+  if (symbol === 'crossmark') {
+    if (displayCrossScore.textContent === '-') {
+      displayCrossScore.style.marginTop = '0px';
+      displayCrossScore.style.fontSize = '1.3rem';
+      displayCrossScore.style.fontWeight = '600';
+    }
+    displayCrossScore.textContent = ++crossScore;
+  }
+  else {
+    if (displayCircleScore.textContent === '-') {
+      displayCircleScore.style.marginTop = '0px';
+      displayCircleScore.style.fontSize = '1.3rem';
+      displayCircleScore.style.fontWeight = '600';
+    }
+    displayCircleScore.textContent = ++circleScore;
   }
 }
