@@ -77,10 +77,10 @@ function resetPlayerSelect() {
   let compSelect = arr.filter((item) => userSelect !== item);
   compSelect = document.getElementsByClassName(`${compSelect}`)[0];
   let check = document.getElementsByClassName(`${userSelect}`)[0];
-  if (!Array.from(check.classList).includes('shadow')) {
+  if (!Array.from(check.classList).includes('shadow'))
     check.classList.toggle('shadow');
+  if (Array.from(compSelect.classList).includes('shadow'))
     compSelect.classList.toggle('shadow');
-  }
 }
 
 
@@ -94,9 +94,9 @@ let clickCount = 0;
 let userSelect = "crossmark";
 
 function playerSelect() {
-  let classlist = Array.from(this.classList);
+  let userClassList = Array.from(this.classList);
   if (clickCount === 0) {
-    if (!classlist.includes('shadow')) {
+    if (!userClassList.includes('shadow')) {
       this.classList.toggle('shadow');
       let arr = ['circlemark', 'crossmark'];
       userSelect = this.classList[0];
@@ -136,8 +136,6 @@ function userClick() {
     boxEvent.splice(boxEvent.indexOf(removeListener), 1);
     this.removeEventListener('click', userClick);
     userSelectBox = this.classList[1];
-    if (clickCount === 5)
-      playerSelect.call(circleCard, computer);
     userTurn(user, this.firstElementChild);
     let zIndexOfOverlay = getComputedStyle(gameOverOverlay).getPropertyValue('z-index');
     if (clickCount <= 4 && zIndexOfOverlay === '-3')
@@ -184,7 +182,9 @@ function userTurn(user, element) {
   else if (user !== 'crossmark' && winnerArray.length !== 3) {
     setTimeout(() => gameInformation.textContent = "X's Turn", 200);
   }
-  playerSelect.call(crossCard, user);                   //when user selects the box then its removed
+  if (clickCount < 5) {
+    playerSelect.call(crossCard, user);     //when user selects the box then its removed
+  }
   let removeBox = Number(element.parentElement.classList[1].slice(-1));
   noOfBoxes.splice(noOfBoxes.indexOf(removeBox), 1);
   symbolAnimation(user, element);
@@ -205,19 +205,19 @@ function computerTurn(computer) {
   else if (computer !== 'crossmark' && winnerArray.length !== 3) {
     setTimeout(() => gameInformation.textContent = "X's Turn", 850);
   }
-  playerSelect.call(circleCard, computer);
+  playerSelect.call(circleCard, computer);            //for enabling shadow on computer's scorecard
   boxes.forEach(item => {                             //removing event when it's computer's turn
     item.removeEventListener('click', userClick);
   });
   setTimeout(() => {                                  //adding event after computer's turn
     boxes.forEach(item => {                           //but on remaining boxes only
-      if (boxEvent.includes(Number(item.classList[1].slice(-1))))
-        item.addEventListener('click', userClick);
+      if (boxEvent.includes(Number(item.classList[1].slice(-1))))    //after 800ms user will be able to click b0xes
+        item.addEventListener('click', userClick);    //when user selects the box then its removed
     });
-    playerSelect.call(circleCard, computer);
-    playerSelect.call(crossCard, user);                   //when user selects the box then its removed
+    playerSelect.call(circleCard, computer);              //for disabling shadow on computer's scorecard
+    playerSelect.call(crossCard, user);                   //for enabling shadow on user's scorecard
   }
-    , 800);                                          //after 800ms user will be able to click b0xes
+    , 800);
   let boxSelected = levelOfGame();
   setTimeout(() => {
     symbolAnimation(computer, boxSelected);
