@@ -14,6 +14,10 @@ restartGame.addEventListener("click", restart);
 restartGame.addEventListener("click", removeOverlay);
 let winnerArray = [];
 let gameInformation = document.getElementsByClassName('information')[0].firstElementChild;
+let crossScore = 0, circleScore = 0;
+let displayCrossScore = document.getElementsByClassName('crossmark')[0].lastElementChild;
+let displayCircleScore = document.getElementsByClassName('circlemark')[0].lastElementChild;
+
 
 function restart() {
   lineAnimation();
@@ -175,10 +179,10 @@ let noOfBoxes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 function userTurn(user, element) {
   if (user === 'crossmark' && winnerArray.length !== 3) {
-    setTimeout(() => { gameInformation.textContent = "O's Turn"; console.log("a"); }, 200);
+    setTimeout(() => gameInformation.textContent = "O's Turn", 200);
   }
   else if (user !== 'crossmark' && winnerArray.length !== 3) {
-    setTimeout(() => { gameInformation.textContent = "X's Turn"; console.log("b"); }, 200);
+    setTimeout(() => gameInformation.textContent = "X's Turn", 200);
   }
   playerSelect.call(crossCard, user);                   //when user selects the box then its removed
   let removeBox = Number(element.parentElement.classList[1].slice(-1));
@@ -196,10 +200,10 @@ function userTurn(user, element) {
 
 function computerTurn(computer) {
   if (computer === 'crossmark' && winnerArray.length !== 3) {
-    setTimeout(() => { gameInformation.textContent = "O's Turn"; console.log("c"); }, 850);
+    setTimeout(() => gameInformation.textContent = "O's Turn", 850);
   }
   else if (computer !== 'crossmark' && winnerArray.length !== 3) {
-    setTimeout(() => { gameInformation.textContent = "X's Turn"; console.log("d"); }, 850);
+    setTimeout(() => gameInformation.textContent = "X's Turn", 850);
   }
   playerSelect.call(circleCard, computer);
   boxes.forEach(item => {                             //removing event when it's computer's turn
@@ -467,7 +471,7 @@ function resetBoxesTransform() {
   message.style.zIndex = '-5';
   winnerCard.style.zIndex = '-5';
   gameGrid.style.transform = 'scale(1)';
-  winnerCard.style.transform = 'scale(1) translateY(0px)';
+  winnerCard.style.transform = 'scale(1) translateY(0px)translateX(0px)';
   message.style.transform = 'translateY(0px)';
   winnerCard.style.width = '110px';
   if (message.firstElementChild.textContent === 'DRAW!')
@@ -543,7 +547,7 @@ function winnerAnimation(gameStatus) {
   setTimeout(() => {
     gameGrid.style.transform = 'scale(0.5)';
     if (gameStatus === 'draw')
-      winnerCard.style.transform = 'scale(1.8) translateY(0px)';
+      winnerCard.style.transform = 'scale(2) translateY(0px)translateX(12px)';
     else
       winnerCard.style.transform = 'scale(2.5) translateY(-10px)';
     setTimeout(() => {
@@ -561,16 +565,15 @@ function draw() {
   setTimeout(() => gameInformation.textContent = "DRAW!", 200);
   let winnerCard = document.getElementsByClassName('winnerCard')[0];
   let crossCard = document.querySelector('.winnerCard').firstElementChild;
-  let circleCard = document.querySelector('.winnerCard').lastElementChild;
   let message = document.getElementsByClassName('message')[0];
   let gameGrid = document.getElementsByClassName('game-grid')[0];
   winnerCard.firstElementChild.classList.toggle('cross');
-  crossCard.style.left = '20px';
-  circleCard.style.right = '20px';
-  winnerCard.style.width = '200px';
   let child = document.createElement('div');
   child.classList.add('circle');
   winnerCard.appendChild(child);
+  let circleCard = document.querySelector('.winnerCard').lastElementChild;
+  circleCard.style.right = '25px';
+  winnerCard.style.width = '200px';
   winnerCard.style.transform = 'scale(0.5)';
   message.style.zIndex = '5';
   winnerCard.style.zIndex = '5';

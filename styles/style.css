@@ -21,7 +21,7 @@ body {
 
 .section {
   width: 100%;
-  border-radius: 15px;
+  border-radius: 10px;
   height: 95%;
   background-color: rgba(241, 235, 235, 0.315);
   backdrop-filter: blur(8px);
@@ -324,7 +324,6 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  transform: scale(1.5) translateY(0px);
 }
 
 .winnerCard > div {
@@ -343,10 +342,11 @@ body {
 
 .section h1 {
   font-size: 3rem;
+  font-weight: 600;
 }
 
 .level {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .level-share {
@@ -442,4 +442,8 @@ body {
   .gameBoard {
     width: 100%;
   }
+}
+
+.information {
+  font-size: 1.2rem;
 }
