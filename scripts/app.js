@@ -708,7 +708,6 @@ function impossibleLevel() {
 
 function oneTrickBox() {
   if (getWinner(computer, 1)) {
-    console.log("1", closeToWin);
     let index;
     for (let value of closeToWin)
       if (document.querySelector(`.box${value}`).firstElementChild.classList.length !== 0)
