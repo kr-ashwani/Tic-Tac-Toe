@@ -40,7 +40,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
 }
 
@@ -52,7 +52,7 @@ body {
   grid-template-rows: repeat(3, 1fr);
   gap: 8px;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .horizontal-line,

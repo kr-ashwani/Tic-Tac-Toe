@@ -37,7 +37,7 @@ body {
   height: 400px;
   background-color: #14bdac;
   @include display-flex;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
 }
 .game-grid {
@@ -48,7 +48,7 @@ body {
   grid-template-rows: repeat(3, 1fr);
   gap: 8px;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .horizontal-line,
 .verticle-line {
