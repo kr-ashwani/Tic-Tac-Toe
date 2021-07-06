@@ -708,14 +708,17 @@ function impossibleLevel() {
 
 function oneTrickBox() {
   if (getWinner(computer, 1)) {
+    console.log("1", closeToWin);
     let index;
     for (let value of closeToWin)
       if (document.querySelector(`.box${value}`).firstElementChild.classList.length !== 0)
         index = value;
     if (closeToWin[0] === 1 && closeToWin[1] === 5 || closeToWin[0] === 3 && closeToWin[1] === 5) {
-      boxEvent.splice(boxEvent.indexOf(closeToWin[1]), 1);
-      noOfBoxes.splice(noOfBoxes.indexOf(closeToWin[1]), 1);
-      return document.querySelector(`.box${closeToWin[1]}`).firstElementChild;
+      if (document.querySelector(`.box${5}`).firstElementChild.classList.length === 0) {
+        boxEvent.splice(boxEvent.indexOf(closeToWin[1]), 1);
+        noOfBoxes.splice(noOfBoxes.indexOf(closeToWin[1]), 1);
+        return document.querySelector(`.box${closeToWin[1]}`).firstElementChild;
+      }
     }
     else if (index === closeToWin[2]) {
       boxEvent.splice(boxEvent.indexOf(closeToWin[0]), 1);
