@@ -12,6 +12,7 @@ body {
   height: 100vh;
   background-image: url(/images/sunset.jpeg);
   background-size: 100% 100%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +53,6 @@ body {
   grid-template-rows: repeat(3, 1fr);
   gap: 8px;
   position: relative;
-  overflow: hidden;
 }
 
 .horizontal-line,
