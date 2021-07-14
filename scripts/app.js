@@ -670,6 +670,7 @@ function shareAnimation() {
 }
 
 
+
 function scoreUpatde(symbol) {
   if (symbol === 'crossmark') {
     if (displayCrossScore.textContent === '-') {
