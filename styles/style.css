@@ -40,7 +40,6 @@ body {
   justify-content: center;
   flex-direction: row;
   position: relative;
-  overflow: hidden;
 }
 
 .game-grid {
