@@ -340,11 +340,13 @@ body {
   color: #545454;
   @include display-flex;
   position: relative;
+  cursor: pointer;
 }
 .share-box {
   position: absolute;
   width: 250px;
   height: 70px;
+  pointer-events: none;
   //
   clip-path: polygon(
     82% 14%,

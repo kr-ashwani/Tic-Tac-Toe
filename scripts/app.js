@@ -503,11 +503,13 @@ function shareAnimation() {
   if (remember === 1) {
     shareBox.style.zIndex = '2';
     shareBox.style.opacity = '1 ';
+    shareBox.style.pointerEvents = 'all';
     shareBox.style.transform = 'translateY(60px)'; remember++;
   }
   else if (remember === 2) {
     shareBox.style.zIndex = '-1';
     shareBox.style.opacity = '0';
+    shareBox.style.pointerEvents = 'none';
     shareBox.style.transform = 'translateY(30px)'; remember--;
   }
 }
