@@ -8,7 +8,7 @@
 
 body {
   width: 100vw;
-  height: 100vh;
+  height: calc(100 * var(--vh, 1vh));
   background-image: url(/images/sunset.jpg);
   background-size: 100% 100%;
   display: flex;
@@ -21,7 +21,7 @@ body {
 .section {
   width: 100%;
   border-radius: 10px;
-  height: 100vh;
+  height: 100%;
   background-color: rgba(241, 235, 235, 0.315);
   backdrop-filter: blur(8px);
   display: flex;
@@ -126,15 +126,20 @@ body {
   justify-content: center;
   flex-direction: row;
   border-radius: 6px;
-  box-shadow: -1.6px -1.6px #5454544f, 0px 1.6px #5454544f, -1.6px 0px #5454544f, 0px -1.6px #5454544f, 0px 1.9px #5454544f, 1.6px 0px #5454544f;
+  box-shadow: -1.6px -1.6px #5454544f, 0px 1.6px #5454544f, -1.6px 0px #5454544f,
+    0px -1.6px #5454544f, 0px 1.9px #5454544f, 1.6px 0px #5454544f;
   transition: 0.2s linear;
   justify-content: space-around;
 }
 
 .shadow {
-  box-shadow: -1.6px -1.6px #d4d0d0, 0px 1.6px #14bdac, -1.6px 0px #d4d0d0, 0px -1.6px #d4d0d0, 0px 1.9px #14bdac, 1.6px 0px #d4d0d0, 0px 3.6px 10px rgba(37, 30, 30, 0.4);
+  box-shadow: -1.6px -1.6px #d4d0d0, 0px 1.6px #14bdac, -1.6px 0px #d4d0d0,
+    0px -1.6px #d4d0d0, 0px 1.9px #14bdac, 1.6px 0px #d4d0d0,
+    0px 3.6px 10px rgba(37, 30, 30, 0.4);
   box-shadow: 0px 1.6px #14bdac, 0px 1.9px #14bdac;
-  box-shadow: -1.6px -1.6px #5454544f, 0px 2.3px #14bdac, -1.6px 0px #5454544f, 0px -1.6px #5454544f, 0px 2.3px #14bdac, 1.6px 0px #5454544f, 0px 3.6px 10px rgba(37, 30, 30, 0.4);
+  box-shadow: -1.6px -1.6px #5454544f, 0px 2.3px #14bdac, -1.6px 0px #5454544f,
+    0px -1.6px #5454544f, 0px 2.3px #14bdac, 1.6px 0px #5454544f,
+    0px 3.6px 10px rgba(37, 30, 30, 0.4);
 }
 
 .crossmark > p:first-child,
@@ -383,7 +388,15 @@ body {
   width: 250px;
   height: 70px;
   pointer-events: none;
-  clip-path: polygon(82% 14%, 87% 0, 91% 14%, 100% 14%, 100% 100%, 0 100%, 0 15%);
+  clip-path: polygon(
+    82% 14%,
+    87% 0,
+    91% 14%,
+    100% 14%,
+    100% 100%,
+    0 100%,
+    0 15%
+  );
   font-size: 3rem;
   display: flex;
   align-items: center;
