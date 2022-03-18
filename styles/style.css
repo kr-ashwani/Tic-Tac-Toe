@@ -8,6 +8,7 @@
 
 body {
   width: 100vw;
+  /* height: 100vh; */
   height: calc(100 * var(--vh, 1vh));
   background-image: url(/images/sunset.jpg);
   background-size: 100% 100%;
@@ -16,6 +17,7 @@ body {
   justify-content: center;
   flex-direction: row;
   font-family: "Poppins", sans-serif;
+  overflow: hidden;
 }
 
 .section {
@@ -23,7 +25,7 @@ body {
   border-radius: 10px;
   height: 100%;
   background-color: rgba(241, 235, 235, 0.315);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,6 +53,9 @@ body {
   gap: 8px;
   position: relative;
   overflow: hidden;
+}
+.game-grid > *[class~="boxes"] {
+  cursor: pointer;
 }
 
 .horizontal-line,
@@ -106,6 +111,9 @@ body {
   justify-content: center;
   flex-direction: row;
   justify-content: space-between;
+}
+.score > * {
+  cursor: pointer;
 }
 
 .crossmark {
@@ -236,6 +244,9 @@ body {
   justify-content: center;
   flex-direction: row;
   justify-content: space-around;
+}
+.restart {
+  cursor: pointer;
 }
 
 .horizontal {
