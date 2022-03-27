@@ -8,23 +8,24 @@
 
 body {
   width: 100vw;
-  min-height: 100vh;
-  height: 100vh;
-  background-image: url(/images/sunset.jpeg);
+  /* height: 100vh; */
+  height: calc(100 * var(--vh, 1vh));
+  background-image: url(/images/sunset.jpg);
   background-size: 100% 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   font-family: "Poppins", sans-serif;
+  overflow: hidden;
 }
 
 .section {
   width: 100%;
   border-radius: 10px;
-  height: 95%;
+  height: 100%;
   background-color: rgba(241, 235, 235, 0.315);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +41,6 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  overflow: hidden;
   position: relative;
 }
 
@@ -53,6 +53,9 @@ body {
   gap: 8px;
   position: relative;
   overflow: hidden;
+}
+.game-grid > *[class~="boxes"] {
+  cursor: pointer;
 }
 
 .horizontal-line,
@@ -109,6 +112,9 @@ body {
   flex-direction: row;
   justify-content: space-between;
 }
+.score > * {
+  cursor: pointer;
+}
 
 .crossmark {
   margin-left: 50px;
@@ -128,15 +134,20 @@ body {
   justify-content: center;
   flex-direction: row;
   border-radius: 6px;
-  box-shadow: -1.6px -1.6px #5454544f, 0px 1.6px #5454544f, -1.6px 0px #5454544f, 0px -1.6px #5454544f, 0px 1.9px #5454544f, 1.6px 0px #5454544f;
+  box-shadow: -1.6px -1.6px #5454544f, 0px 1.6px #5454544f, -1.6px 0px #5454544f,
+    0px -1.6px #5454544f, 0px 1.9px #5454544f, 1.6px 0px #5454544f;
   transition: 0.2s linear;
   justify-content: space-around;
 }
 
 .shadow {
-  box-shadow: -1.6px -1.6px #d4d0d0, 0px 1.6px #14bdac, -1.6px 0px #d4d0d0, 0px -1.6px #d4d0d0, 0px 1.9px #14bdac, 1.6px 0px #d4d0d0, 0px 3.6px 10px rgba(37, 30, 30, 0.4);
+  box-shadow: -1.6px -1.6px #d4d0d0, 0px 1.6px #14bdac, -1.6px 0px #d4d0d0,
+    0px -1.6px #d4d0d0, 0px 1.9px #14bdac, 1.6px 0px #d4d0d0,
+    0px 3.6px 10px rgba(37, 30, 30, 0.4);
   box-shadow: 0px 1.6px #14bdac, 0px 1.9px #14bdac;
-  box-shadow: -1.6px -1.6px #5454544f, 0px 2.3px #14bdac, -1.6px 0px #5454544f, 0px -1.6px #5454544f, 0px 2.3px #14bdac, 1.6px 0px #5454544f, 0px 3.6px 10px rgba(37, 30, 30, 0.4);
+  box-shadow: -1.6px -1.6px #5454544f, 0px 2.3px #14bdac, -1.6px 0px #5454544f,
+    0px -1.6px #5454544f, 0px 2.3px #14bdac, 1.6px 0px #5454544f,
+    0px 3.6px 10px rgba(37, 30, 30, 0.4);
 }
 
 .crossmark > p:first-child,
@@ -233,6 +244,9 @@ body {
   justify-content: center;
   flex-direction: row;
   justify-content: space-around;
+}
+.restart {
+  cursor: pointer;
 }
 
 .horizontal {
@@ -336,7 +350,7 @@ body {
   font-size: 1.3rem;
   background-color: #14bdac;
   border: 0px;
-  color: white;
+  color: #fff4f4;
   border-radius: 8px;
 }
 
@@ -377,13 +391,23 @@ body {
   justify-content: center;
   flex-direction: row;
   position: relative;
+  cursor: pointer;
 }
 
 .share-box {
   position: absolute;
   width: 250px;
   height: 70px;
-  clip-path: polygon(82% 14%, 87% 0, 91% 14%, 100% 14%, 100% 100%, 0 100%, 0 15%);
+  pointer-events: none;
+  clip-path: polygon(
+    82% 14%,
+    87% 0,
+    91% 14%,
+    100% 14%,
+    100% 100%,
+    0 100%,
+    0 15%
+  );
   font-size: 3rem;
   display: flex;
   align-items: center;
@@ -443,7 +467,6 @@ body {
   .section {
     width: 100%;
     border-radius: 0px;
-    height: 100%;
   }
 }
 
@@ -451,8 +474,45 @@ body {
   .gameBoard {
     width: 100%;
   }
+  body {
+    background-size: auto 100%;
+    background-position: center center;
+  }
 }
 
 .information {
   font-size: 1.2rem;
+}
+
+@media screen and (max-height: 700px) {
+  .level {
+    font-size: 1.2rem;
+  }
+  body {
+    align-items: flex-start;
+  }
+  .section {
+    justify-content: space-around;
+  }
+  .section h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+  .share {
+    width: 50px;
+    height: 30px;
+  }
+  .crossmark,
+  .circlemark {
+    width: 150px;
+    height: 30px;
+  }
+  .game-grid {
+    width: 350px;
+    height: 350px;
+  }
+  .gameBoard {
+    width: 100%;
+    height: 380px;
+  }
 }

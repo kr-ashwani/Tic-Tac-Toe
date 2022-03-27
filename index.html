@@ -3,26 +3,38 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play the classic Tic-Tac-Toe game for free online .It has easy,medium and imposible level which makes this game a bit challenging.">
   <title>Tic-Tac-Toe</title>
   <link  rel="stylesheet" href="/styles/style.css">
   <script defer src="https://kit.fontawesome.com/bd7a6ec15e.js" crossorigin="anonymous"></script>
+  <script>
+     function setViewportHeight(){
+        // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+      let vh = window.innerHeight * 0.01;
+      // Then we set the value in the --vh custom property to the root of the document
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+      }
+      setViewportHeight();
+      window.addEventListener("resize", setViewportHeight);
+  </script>
 </head>
 <body>
-  <div class="section">
+  <div  class="section">
     <h1>Tic-Tac-Toe</h1>
     <div class="level-share">
       <div class="level">Level
         <select name="level">
           <option class="easy" value="easy">Easy</option>
           <option class="medium"selected value="medium">Medium</option>
+          <option class="impossible" value="impossible">Impossible</option>
         </select>
       </div>
       <div class="share"><i class="fas fa-share-alt"></i>
         <div class="share-box">
-          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftic-tac-toe-fungame.netlify.app%2F&amp;src=sdkpreparse"><i class="fab fa-facebook-square"></i></a>
-          <a  href="#"><i class="fab fa-twitter-square"></i></a>
-          <a  href="#"><i class="fab fa-instagram-square"></i></a>
-          <a  href="#"><i class="fab fa-whatsapp-square"></i></a>
+          <a  target="_blank" rel="noopener"href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftic-tac-toe-fungame.netlify.app%2F&amp;src=sdkpreparse"><i class="fab fa-facebook-square"></i></a>
+          <a  target="_blank" rel="noopener" href="https://twitter.com/share?url=https://tic-tac-toe-funmatch.netlify.app/ "> <i class="fab fa-twitter-square"></i></a>
+          <a  target="_blank" rel="noopener"  href="https://www.instagram.com"> <i class="fab fa-instagram-square"></i></a>
+          <a  target="_blank" rel="noopener" href="whatsapp://send?text=https://tic-tac-toe-funmatch.netlify.app/" data-action="share/whatsapp/share"><i class="fab fa-whatsapp-square"> </i></a>
         </div>
       </div>
     </div>
