@@ -17,7 +17,7 @@ body {
   justify-content: center;
   flex-direction: row;
   font-family: "Poppins", sans-serif;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .section {
