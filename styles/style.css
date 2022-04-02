@@ -7,7 +7,6 @@
 }
 
 body {
-  width: 100vw;
   /* height: 100vh; */
   height: calc(100 * var(--vh, 1vh));
   background-image: url(/images/sunset.jpg);
